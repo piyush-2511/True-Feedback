@@ -23,7 +23,7 @@ export async function POST(request: Request){
   const {acceptMessages} = await request.json()
   
   try {
-    const updatedUser = await UserModel.findByIdAndDelete(userId,
+    const updatedUser = await UserModel.findByIdAndUpdate(userId,
       {
         isAcceptingMessage: acceptMessages,
         new : true

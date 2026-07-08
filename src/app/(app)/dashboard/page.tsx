@@ -36,7 +36,7 @@ function Dashboard() {
     const fetchAcceptMessage = useCallback(async()=>{
       setIsSwitchLoading(true)
       try {
-        const response = await axios.get<ApiResponse>('/api/accept-message')
+        const response = await axios.get<ApiResponse>('/api/accept-messages')
         setValue('acceptMessage', response.data.isAcceptingMessage ?? false )
 
       } catch (error) {
@@ -60,7 +60,8 @@ function Dashboard() {
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>
-        toast.error("Failed To Fetch Message")
+        console.error(axiosError.response?.data ?? axiosError.message)
+        toast.error(axiosError.response?.data.message ?? "Failed To Fetch Messages")
       }finally{
         setisloading(false)
         setIsSwitchLoading(false)
@@ -88,7 +89,7 @@ function Dashboard() {
       }
     }
 
-    const {username} = session?.user as User
+    const username = session?.user?.username
     // do more research
     const baseUrl = `${window.location.protocol}//${window.location.host}`
     const profileUrl = `${baseUrl}/u/${username}`
