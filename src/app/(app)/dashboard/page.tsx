@@ -20,6 +20,7 @@ function Dashboard() {
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setisloading] = useState(false)
   const [isSwitchLoading, setIsSwitchLoading] = useState(false)
+  const [baseUrl, setBaseUrl] = useState('') // NEW
 
     const handleDeleteMessage = (messageId: string) =>{
       setMessages(messages.filter((message) => message._id.toString() !== messageId))
@@ -94,10 +95,18 @@ function Dashboard() {
       }
     }
 
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        setBaseUrl(`${window.location.protocol}//${window.location.host}`)
+      }
+    }, [])
+
+
     const username = session?.user?.username
-    // do more research
-    const baseUrl = `${window.location.protocol}//${window.location.host}`
     const profileUrl = `${baseUrl}/u/${username}`
+
+    // do more research
+    // const baseUrl = `${window.location.protocol}//${window.location.host}`
 
     const copyToClipboard = () =>{
       navigator.clipboard.writeText(profileUrl)
