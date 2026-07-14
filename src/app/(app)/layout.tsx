@@ -1,8 +1,4 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-
 import Navbar from "@/components/Navbar";
-
 
 export default function RootLayout({
   children,
@@ -10,13 +6,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-    
-    <Navbar />
+    <div className="min-h-screen flex flex-col bg-[#0D0E13]">
+      <Navbar />
       <main className="flex-1">
         {children}
       </main>
-    </>
-    
+    </div>
   );
 }

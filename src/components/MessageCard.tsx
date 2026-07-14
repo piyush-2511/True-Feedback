@@ -2,10 +2,8 @@
 
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -47,31 +45,46 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   }
 
   return (
-    <Card>
+    <Card className="bg-[#171922] border-0 border-l-2 border-l-[#E8B65A] rounded-md">
       <CardHeader>
-        <div className="flex justify-between items-start">
-          <CardTitle className="text-base font-normal">
+        <div className="flex justify-between items-start gap-3">
+          <CardTitle className="text-[#F5EFE6] text-base font-normal leading-relaxed">
             {message.content}
           </CardTitle>
 
           <AlertDialog>
-            <AlertDialogTrigger render={<Button variant="destructive" size="icon"><X className='w-5 h-5' /></Button>} />
-            <AlertDialogContent>
+            <AlertDialogTrigger render={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-[#5C5E6E] hover:text-[#E24B4A] hover:bg-[#1C1E29] flex-shrink-0"
+              >
+                <X className='w-4 h-4' />
+              </Button>
+            } />
+            <AlertDialogContent className="bg-[#171922] border border-[#262837] text-[#F5EFE6]">
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete this message.
+                <AlertDialogTitle className="text-[#F5EFE6]">Delete this message?</AlertDialogTitle>
+                <AlertDialogDescription className="text-[#8B8D9E]">
+                  This can't be undone. The message will be gone for good.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteConfirm}>Continue</AlertDialogAction>
+                <AlertDialogCancel className="border-[#2A2C3A] bg-transparent text-[#F5EFE6] hover:bg-[#1C1E29] hover:text-[#F5EFE6]">
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleDeleteConfirm}
+                  className="bg-[#E24B4A] hover:bg-[#C93F3E] text-white"
+                >
+                  Delete
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </div>
 
-        <CardDescription>
+        <CardDescription className="font-[family-name:var(--font-geist-mono)] text-[11px] text-[#5C5E6E] tracking-wide">
           {new Date(message.createdAt).toLocaleString()}
         </CardDescription>
       </CardHeader>
