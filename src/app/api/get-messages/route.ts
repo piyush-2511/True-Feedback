@@ -25,7 +25,7 @@ export async function GET(request: Request){
   try {
     const foundUser = await UserModel.aggregate([
       { $match : {_id : userId}},
-      { $unwind : '$messages'},
+      { $unwind : { path: '$messages', preserveNullAndEmptyArrays: true } },
       { $sort : {'messages.createdAt': -1}},
       { $group : {_id: '$_id', messages: {$push : '$messages'}}}
     ])
@@ -40,11 +40,13 @@ export async function GET(request: Request){
       })
     }
 
-    console.log(foundUser[0])
+    // console.log(foundUser[0])
+
+    const messages = (foundUser[0].messages ?? []).filter(Boolean)
     return Response.json({
       success: true,
       message: "User messages retrieved successfully",
-      messages: foundUser[0].messages
+      messages
     }, {
       status: 200
     })

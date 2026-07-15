@@ -29,7 +29,10 @@ function Dashboard() {
     const {data: session} = useSession()
 
     const form = useForm({
-      resolver : zodResolver(AcceptMessageSchema)
+      resolver : zodResolver(AcceptMessageSchema),
+      defaultValues : {
+        acceptMessage : false
+      }
     })
     const {register, watch, setValue} = form;
     const acceptMessage = watch('acceptMessage', )
